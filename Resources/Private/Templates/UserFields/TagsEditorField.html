@@ -1,0 +1,39 @@
+{namespace golbTags=Blog\Golb\ViewHelpers}
+
+<golbTags:includeFile path="{f:uri.resource(path:'Js/golbMain.js', extensionName:'golb')}"/>
+<golbTags:includeFile path="{f:uri.resource(path:'Css/golbTags.css', extensionName:'golb')}"/>
+<golbTags:includeFile path="{f:uri.resource(path:'Libraries/jquery.autocomplete.js', extensionName:'golb')}"/>
+<script>
+
+    var GOLBavailableTags ={allTags->f:format.raw()};
+    var GOLBId = '{pid}';
+    var GOLBTable = '{table}';
+
+</script>
+
+
+<div class="extpk_suggest">
+    <input id="suggestField" type="text" name="suggestField" autocomplete="off"/>
+    <button class="extpk_add">
+        <f:translate key="add">Add</f:translate>
+    </button>
+    <div class="extpk_info">
+        <f:translate key="addInfo">
+            Just type the keyword you want to add
+        </f:translate>
+    </div>
+</div>
+<div class="extpk_keywords clearfix">
+    <input class="extpk_hidden" type="hidden" name="data[{table}][{pid}][golb_tags_hidden][]" value="{tag.title}" autocomplete="off" />
+    <f:if condition="{tags}">
+        <f:for each="{tags}" as="tag">
+            <label class="keyword">
+                <span class="value">{tag.title}</span>
+                <span class="extpk_close">x</span>
+                <input class="extpk_hidden" type="hidden" name="data[{table}][{pid}][golb_tags_hidden][]" value="{tag.title}" autocomplete="off" />
+            </label>
+        </f:for>
+    </f:if>
+    <input class="extpk_language" type="hidden" value="{language}" />
+</div>
+<div class="extpk_placeholder"></div>

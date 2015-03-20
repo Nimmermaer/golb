@@ -42,6 +42,9 @@ $boot = function($packageKey) {
 		'className' => 'Blog\\Golb\\Domain\\Model\\Category',
 	);
 
+	$GLOBALS["TYPO3_CONF_VARS"]["SC_OPTIONS"]["t3lib/class.t3lib_tcemain.php"]["processDatamapClass"][] =
+		'EXT:golb/Classes/Hook/Tx_golb_tcemainprocdm.php:Blog\Golb\Hook\Tx_golb_tcemainprocdm';
+
 };
 
 /** @var string $_EXTKEY */

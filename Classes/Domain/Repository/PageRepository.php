@@ -105,6 +105,7 @@ class PageRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 		$pages = $this->findSubPagesByPageIds($rootPages);
 
 		$this->posts = array();
+
 		$this->traversePages($pages);
 
 		if ($exclude) {

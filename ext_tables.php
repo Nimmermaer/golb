@@ -22,6 +22,13 @@ $boot = function($packageKey) {
 		'Sorting'
 	);
 
+	\TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
+		'Blog.' . $packageKey,
+		'TagCloud',
+		'TagCloud'
+	);
+
+
 	\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addStaticFile($packageKey, 'Configuration/TypoScript', 'Golb');
 
 	//New fields
@@ -86,6 +93,51 @@ $boot = function($packageKey) {
 			'enableMultiSelectFilterTextfield' => TRUE,
 		),
 	);
+	$GLOBALS['TCA']['pages']['columns']['golb_tags'] = array(
+		'exclude' => 0,
+		'label' => 'LLL:EXT:golb/Resources/Private/Language/locallang_db.xlf:pages.golb_tags',
+		'config' => array(
+			'type' => 'select',
+			'foreign_table' => 'tx_golb_domain_model_tag',
+			'MM' => 'tx_golb_tag_record_mm',
+			'MM_opposite_field' => 'records',
+			'MM_match_fields' => array(
+				'tablenames' => 'pages',
+				'fieldname' => 'golb_tags'
+			),
+			'size' => 5,
+			'minitems' => 0,
+			'maxitems' => 999,
+			'wizards' => array(
+				'_PADDING' => 4,
+				'_VERTICAL' => 1,
+				'suggest' => array(
+					'type' => 'suggest'
+				),
+				'edit' => array(
+					'type' => 'popup',
+					'title' => 'Edit',
+					'module' => array(
+						'name' => 'wizard_edit',
+					),
+					'popup_onlyOpenIfSelected' => 1,
+					'icon' => 'edit2.gif',
+					'JSopenParams' => 'height=350,width=580,status=0,menubar=0,scrollbars=1'
+				),
+				'add' => array(
+					'type' => 'script',
+					'title' => 'LLL:EXT:cms/locallang_tca.xlf:sys_template.basedOn_add',
+					'icon' => 'add.gif',
+					'params' => array(
+						'table' => 'tx_golb_domain_model_tag',
+						'pid' => '###CURRENT_PID###',
+						'setValue' => 'prepend'
+					),
+					'module' => array(
+						'name' => 'wizard_add'
+					)
+				)
+			)
 
 	$GLOBALS['TCA']['pages']['columns']['tt_content'] = array(
 		'exclude' => 0,
@@ -188,8 +240,63 @@ $boot = function($packageKey) {
 		'options.pageTree.doktypesToShowInNewPageDragArea := addToList(41)'
 	);
 
+
+	\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addLLrefForTCAdescr('tx_golb_domain_model_tag', 'EXT:golb/Resources/Private/Language/locallang_csh_tx_golb_domain_model_tag.xlf');
+	\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_golb_domain_model_tag');
+	$GLOBALS['TCA']['tx_golb_domain_model_tag'] = array(
+		'ctrl' => array(
+			'title'	=> 'LLL:EXT:golb/Resources/Private/Language/locallang_db.xlf:tx_golb_domain_model_tag',
+			'label' => 'title',
+			'tstamp' => 'tstamp',
+			'crdate' => 'crdate',
+			'cruser_id' => 'cruser_id',
+			'dividers2tabs' => TRUE,
+			'sortby' => 'sorting',
+			'versioningWS' => 2,
+			'versioning_followPages' => TRUE,
+			'origUid' => 't3_origuid',
+			'languageField' => 'sys_language_uid',
+			'transOrigPointerField' => 'l10n_parent',
+			'transOrigDiffSourceField' => 'l10n_diffsource',
+			'delete' => 'deleted',
+			'enablecolumns' => array(
+				'disabled' => 'hidden',
+				'starttime' => 'starttime',
+				'endtime' => 'endtime',
+			),
+			'searchFields' => 'title,',
+			'dynamicConfigFile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($packageKey) . 'Configuration/TCA/Tag.php',
+			'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath($packageKey) . 'Resources/Public/Icons/tx_golb_domain_model_tag.gif'
+		),
+	);
+
+
+	// Add new properties to pages
+	$extPageKeyword = array (
+		'tx_golb_tags_editor' => array (
+			'exclude' => 1,
+			'label' => 'LLL:EXT:ext_page_keywords/Resources/Private/Language/locallang_db.xlf:tx_golb_tags_editor',
+			'config' => array (
+				'type' => 'user',
+				'userFunc' => 'Blog\Golb\UserFunctions\TagField->suggestTag'
+			),
+		),
+	);
+
+	\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTCAcolumns('pages_language_overlay', $extPageKeyword, 1);
+	\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTCAcolumns('pages', $extPageKeyword, 1);
+	\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addToAllTCAtypes('pages','tx_golb_tags_editor','','before:keywords');
+	\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addToAllTCAtypes('pages_language_overlay', 'tx_golb_tags_editor','','before:keywords');
+
+
+
 };
 
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::registerAjaxHandler (
+	'Golb::golb_tags',
+	'Blog\\Golb\\Ajax\\SuggestField->getTags',
+	FALSE
+);
 /** @var string $_EXTKEY */
 $boot($_EXTKEY);
 unset($boot);
