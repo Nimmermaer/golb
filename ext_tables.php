@@ -143,7 +143,8 @@ $boot = function($packageKey) {
 					)
 				)
 			)
-
+		)
+	);
 	$GLOBALS['TCA']['pages']['columns']['tt_content'] = array(
 		'exclude' => 0,
 		'label' => 'LLL:EXT:golb/Resources/Private/Language/locallang_db.xlf:pages.tt_content',
@@ -177,7 +178,7 @@ $boot = function($packageKey) {
 		'', // at which types it should appear (f.e. in table tt_content 'textpic' or 'image')
 		'after:author_email' // before: or after: the field in the TCA
 	);
-
+	\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addToAllTCAtypes('pages','--div--;Golb, golb_related, golb_tags');
 	$GLOBALS['TCA']['pages']['columns']['subpages'] = array(
 		'exclude' => 0,
 		'config' => array(

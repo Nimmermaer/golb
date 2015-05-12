@@ -1,26 +1,38 @@
 {namespace g=Blog\Golb\ViewHelpers}
 
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en"
-      xmlns:f="http://xsd.helmut-hummel.de/ns/TYPO3/Fluid/ViewHelpers"
-      xmlns:g="http://xsd.marcel-wieser.de/ns/Blog/Golb/ViewHelpers/index.xml">
+	  xmlns:f="http://xsd.helmut-hummel.de/ns/TYPO3/Fluid/ViewHelpers"
+	  xmlns:g="http://xsd.marcel-wieser.de/ns/Blog/Golb/ViewHelpers/index.xml">
 <f:layout name="Default"/>
 
 <f:section name="Main">
-    <ul>
-        <g:paginate objects="{posts}"
-                    as="paginatedPosts"
-                    configuration="{itemsPerPage: 2, insertAbove: 0, insertBelow: 1, maximumNumberOfLinks: 10}">
-            <f:for each="{paginatedPosts}" as="post">
-                <li>{post.title} -
-                    <ul>
 
-                        <f:for each="{post.categories}" as="category">
-                            <li>{category.title}</li>
-                        </f:for>
-                    </ul>
-                </li>
-            </f:for>
-        </g:paginate>
-    </ul>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-12">
+				<h2>Latest</h2>
+				<ul>
+					<g:paginate objects="{posts}"
+								as="paginatedPosts"
+								configuration="{itemsPerPage: 10, insertAbove: 0, insertBelow: 1, maximumNumberOfLinks: 10}">
+						<f:for each="{paginatedPosts}" as="post">
+
+							<li>{post.title} -
+								<ul>
+
+									<f:debug>{post.ttContents.0}</f:debug>
+									<g:page.keywords pagePid="{post.ttContents.0.pid}"></g:page.keywords>
+
+									<f:link.page pageUid="{post.uid}">mehr..</f:link.page>
+									<f:for each="{post.categories}" as="category">
+										<li>{category.title}</li>
+									</f:for>
+								</ul>
+							</li>
+						</f:for>
+					</g:paginate>
+				</ul>
+			</div>
+		</div>
 </f:section>
 </html>

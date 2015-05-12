@@ -88,6 +88,7 @@ class BlogController extends BaseController {
 	 * @return void
 	 */
 	public function latestAction() {
+
 		$posts = $this->pageRepository->findPosts(
 			$this->pages,
 			$this->contentObject->data['golb_limit'],

@@ -6,7 +6,9 @@ CREATE TABLE pages (
 	view_count int(11) DEFAULT '0' NOT NULL,
 	golb_related varchar(255) DEFAULT NULL,
 	tt_content int(11) DEFAULT '0' NOT NULL,
-	author_image int(11) unsigned DEFAULT '0'
+	author_image int(11) unsigned DEFAULT '0',
+	golb_tags varchar(255) DEFAULT NULL,
+	tx_golb_tags_editor varchar(255) DEFAULT NULL
 );
 
 #

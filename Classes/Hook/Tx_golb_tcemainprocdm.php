@@ -11,10 +11,10 @@ namespace Blog\Golb\Hook;
 class Tx_golb_tcemainprocdm {
 
 	function processDatamap_preProcessFieldArray( &$fieldArray, $table, $id, &$pObj ) {
-		if ( $_POST['data'][ $table ][ $id ]['golb_tags_hidden'][0] != '' ) {
-			var_dump($_POST['data'][ $table ][ $id ]['golb_tags_hidden']);
-			die();
+
+	  if ( $_POST['data'][ $table ][ $id ]['golb_tags_hidden'][1] != '' ) {
 			$editTags = array();
+
 			if ( $_POST['data'][ $table ][ $id ]['golb_tags_hidden'] ) {
 				foreach ( $_POST['data'][ $table ][ $id ]['golb_tags_hidden'] as $tag ) {
 					if ( trim( strlen( $tag ) ) > 0 ) {
@@ -35,7 +35,6 @@ class Tx_golb_tcemainprocdm {
 				foreach ( $editTags as $tag ) {
 					if ( ! array_key_exists( $tag, $allTags ) ) {
 						$GLOBALS['TYPO3_DB']->exec_INSERTquery(
-
 							'tx_golb_domain_model_tag',
 							array(
 								'pid'   => intval( $id ),
@@ -53,6 +52,7 @@ class Tx_golb_tcemainprocdm {
 				$fieldArray['golb_tags'] = implode( ',', $tagsToUpdate );
 			}
 		}
-	}
+		}
+
 }
 

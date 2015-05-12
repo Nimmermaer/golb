@@ -206,6 +206,14 @@ class Page extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	protected $keywords;
 
 	/**
+	 * Tags for this page
+	 *
+	 * @var string $golbTags
+	 */
+	protected $golbTags;
+
+
+	/**
 	 * Last updated timestamp
 	 *
 	 * Maps on field "lastUpdated" (Note: CamelCase instead of underscores)
@@ -861,6 +869,20 @@ class Page extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	 */
 	public function setKeywords($keywords) {
 		$this->keywords = $keywords;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getGolbTags() {
+		return $this->golbTags;
+	}
+
+	/**
+	 * @param string $golbTags
+	 */
+	public function setGolbTags($golbTags) {
+		$this->golbTags = $golbTags;
 	}
 
 	/**
