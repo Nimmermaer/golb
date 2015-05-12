@@ -157,7 +157,7 @@ $boot = function($packageKey) {
 		),
 	);
 
-	\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addToAllTCAtypes('pages','--div--;Golb, golb_related');
+	//\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addToAllTCAtypes('pages','--div--;Golb, golb_related');
 
 	$GLOBALS['TCA']['pages']['columns']['author_image'] = array(
 		'exclude' => 0,
@@ -310,6 +310,12 @@ $pluginSignature = $extensionName.'_'.$pluginName;
 $TCA['tt_content']['types']['list']['subtypes_excludelist'][$pluginSignature] = 'layout,select_key,pages';
 $TCA['tt_content']['types']['list']['subtypes_addlist'][$pluginSignature] = 'pi_flexform';
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPiFlexFormValue($pluginSignature, 'FILE:EXT:'.$_EXTKEY.'/Configuration/FlexForm/Flexform.xml');
+
+$pluginNameBlog =  strtolower('Blog');
+$pluginSignatureBlog = $extensionName.'_'.$pluginNameBlog;
+$TCA['tt_content']['types']['list']['subtypes_excludelist'][$pluginSignatureBlog] = 'layout,select_key,pages';
+$TCA['tt_content']['types']['list']['subtypes_addlist'][$pluginSignatureBlog] = 'pi_flexform';
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPiFlexFormValue($pluginSignatureBlog, 'FILE:EXT:'.$_EXTKEY.'/Configuration/FlexForm/Blog.xml');
 
 /** @var string $_EXTKEY */
 $boot($_EXTKEY);

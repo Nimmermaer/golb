@@ -9,24 +9,25 @@
 
 	<div class="container-fluid">
 		<div class="row">
-			<div class="col-md-12">
-				<h2>Latest</h2>
+			<div id="Blog" class="col-md-12">
+				<h2>Aktuelle Beiträge</h2>
 				<ul>
 					<g:paginate objects="{posts}"
 								as="paginatedPosts"
-								configuration="{itemsPerPage: 10, insertAbove: 0, insertBelow: 1, maximumNumberOfLinks: 10}">
+								configuration="{itemsPerPage: 2, insertAbove: 0, insertBelow: 1, maximumNumberOfLinks: 10}">
 						<f:for each="{paginatedPosts}" as="post">
 
-							<li>{post.title} -
+							<li class="item">
 								<ul>
+									<li>
+										<f:debug>{post.ttContents}</f:debug>
+										<br />
+										<f:for each="{post.ttContents}" as="content">
+											<f:format.html><f:format.crop maxCharacters="200">{content.bodytext}</f:format.crop></f:format.html>
+										</f:for>
 
-									<f:debug>{post.ttContents.0}</f:debug>
-									<g:page.keywords pagePid="{post.ttContents.0.pid}"></g:page.keywords>
-
-									<f:link.page pageUid="{post.uid}">mehr..</f:link.page>
-									<f:for each="{post.categories}" as="category">
-										<li>{category.title}</li>
-									</f:for>
+										<f:link.page pageUid="{post.uid}"><span class="more">[mehr..]</span></f:link.page>
+										<g:page.keywords pagePid="{post.ttContents.0.pid}"></g:page.keywords>
 								</ul>
 							</li>
 						</f:for>

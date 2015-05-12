@@ -30,6 +30,10 @@
 			<trans-unit id="pages.excludepages">
                 <source>Exclude pages</source>
             </trans-unit>
+
+			<trans-unit id="tx_golb_tags_editor">
+				<source>Blog Keywords</source>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>
