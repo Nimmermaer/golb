@@ -1,0 +1,42 @@
+<T3DataStructure>
+	<meta>
+		<langDisable>1</langDisable>
+	</meta>
+	<sheets>
+		<sDEF>
+			<ROOT>
+				<TCEforms>
+					<sheetTitle>Plugins</sheetTitle>
+				</TCEforms>
+				<type>array</type>
+				<el>
+					<switchableControllerActions>
+						<TCEforms>
+							<label>Ansicht</label>
+							<onChange>reload</onChange>
+							<config>
+								<type>select</type>
+								<items type="array">
+									<numIndex index="1" type="array">
+										<numIndex index="0">Jahresanzeige</numIndex>
+										<numIndex index="1">Blog->listYear</numIndex>
+									</numIndex>
+									<numIndex index="2" type="array">
+										<numIndex index="0">Kategorien</numIndex>
+										<numIndex index="1">Blog->listCategory</numIndex>
+									</numIndex>
+									<numIndex index="3" type="array">
+										<numIndex index="0">TagCloud</numIndex>
+										<numIndex index="1">Blog->showTagCloud</numIndex>
+									</numIndex>
+								</items>
+								<maxitems>3</maxitems>
+								<size>3</size>
+							</config>
+						</TCEforms>
+					</switchableControllerActions>
+				</el>
+			</ROOT>
+		</sDEF>
+	</sheets>
+</T3DataStructure>

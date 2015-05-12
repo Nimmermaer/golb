@@ -28,6 +28,11 @@ $boot = function($packageKey) {
 		'TagCloud'
 	);
 
+	\TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
+		'Blog.' . $packageKey,
+		'MenuBar',
+		'MenuBar'
+	);
 
 	\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addStaticFile($packageKey, 'Configuration/TypoScript', 'Golb');
 
@@ -297,6 +302,14 @@ $boot = function($packageKey) {
 	'Blog\\Golb\\Ajax\\SuggestField->getTags',
 	FALSE
 );
+
+$extensionName = strtolower(\TYPO3\CMS\Core\Utility\GeneralUtility::underscoredToUpperCamelCase($_EXTKEY));
+$pluginName =  strtolower('MenuBar');
+$pluginSignature = $extensionName.'_'.$pluginName;
+$TCA['tt_content']['types']['list']['subtypes_excludelist'][$pluginSignature] = 'layout,select_key,pages';
+$TCA['tt_content']['types']['list']['subtypes_addlist'][$pluginSignature] = 'pi_flexform';
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPiFlexFormValue($pluginSignature, 'FILE:EXT:'.$_EXTKEY.'/Configuration/FlexForm/Flexform.xml');
+
 /** @var string $_EXTKEY */
 $boot($_EXTKEY);
 unset($boot);

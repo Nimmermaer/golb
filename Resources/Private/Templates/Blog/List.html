@@ -8,11 +8,11 @@
 <f:section name="Main">
     <h1>Listview</h1>
     <ul>
-        <g:paginate objects="{posts}"
+       <g:paginate objects="{posts}"
                     as="paginatedPosts"
                     configuration="{itemsPerPage: 2, insertAbove: 0, insertBelow: 1, maximumNumberOfLinks: 10}">
             <f:for each="{paginatedPosts}" as="post">
-                <li>{post.title} -
+                <li><f:link.page pageUid="{post.uid}">{post.title}</f:link.page> -
                     <ul>
 
                         <f:for each="{post.categories}" as="category">

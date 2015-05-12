@@ -151,6 +151,7 @@ class PaginateController extends \TYPO3\CMS\Fluid\Core\Widget\AbstractWidgetCont
 	 * @return array<mixed> the list of visible objects
 	 */
 	public function getVisibleObjects($objects) {
+		if($objects){
 		$i = 0;
 		$modifiedObjects = array();
 		$indexMin = $this->itemsPerPage * ($this->currentPage - 1);
@@ -164,6 +165,7 @@ class PaginateController extends \TYPO3\CMS\Fluid\Core\Widget\AbstractWidgetCont
 		}
 
 		return $modifiedObjects;
+		}
 	}
 
 	/**
