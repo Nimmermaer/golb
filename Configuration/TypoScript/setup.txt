@@ -1,6 +1,8 @@
 plugin.tx_golb {
 	settings {
 		defaultBackendLayout = 4
+        tagStoragePid =
+        storageTagListPid =
 	}
 }
 
@@ -60,6 +62,7 @@ config.tx_extbase {
 						url_type.mapOnProperty = urlType
 						view_count.mapOnProperty = viewCount
 						golb_related.mapOnProperty = relatedPages
+                        golb_tags.mapOnProperty = tags
 					}
 				}
 			}
@@ -93,6 +96,7 @@ config.tx_extbase {
 						starttime.mapOnProperty = startTime
 						target.mapOnProperty = target
 						tstamp.mapOnProperty = timestamp
+
 					}
 				}
 			}

@@ -3,6 +3,11 @@ if (!defined('TYPO3_MODE')) {
 	die ('Access denied.');
 }
 
+if (TYPO3_MODE === 'BE') {
+	$GLOBALS['TYPO3_CONF_VARS'][TYPO3_MODE]['AJAX']['Golb::getKeywords']
+		= 'EXT:golb/Classes/UserFunctions/TagField.php:Blog\Golb\UserFunctions\TagField->suggestTag';
+}
+
 $boot = function($packageKey) {
 	\TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
 		'Blog.' . $packageKey,
@@ -39,10 +44,10 @@ $boot = function($packageKey) {
 		'Blog.' . $packageKey,
 		'TagCloud',
 		array(
-			'TagCloud' => 'show'
+			'Tag' => 'list'
 		),
 		array(
-			'TagCloud' => 'show'
+			'Tag' => 'list'
 		)
 	);
 
@@ -66,6 +71,7 @@ $boot = function($packageKey) {
 
 	$GLOBALS["TYPO3_CONF_VARS"]["SC_OPTIONS"]["t3lib/class.t3lib_tcemain.php"]["processDatamapClass"][] =
 		'EXT:golb/Classes/Hook/Tx_golb_tcemainprocdm.php:Blog\Golb\Hook\Tx_golb_tcemainprocdm';
+
 
 };
 

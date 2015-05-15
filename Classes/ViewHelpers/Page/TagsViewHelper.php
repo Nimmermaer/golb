@@ -25,20 +25,11 @@ namespace Blog\Golb\ViewHelpers\Page;
 	 ***************************************************************/
 
 /**
- * ViewHelper to include a css/js file
  *
- * # Example: Basic example
- * <code>
- * <n:includeFile path="{settings.cssFile}" />
- * </code>
- * <output>
- * This will include the file provided by {settings} in the header
- * </output>
- *
- * @package TYPO3
- * @subpackage tx_news
+ * @package Golb
+ * @subpackage golb
  */
-class KeywordsViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
+class TagsViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
 
 	/**
 	 * @var \Blog\Golb\Domain\Repository\PageRepository
@@ -47,13 +38,20 @@ class KeywordsViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHe
 	protected $pageRepository;
 
 	/**
-	 * @param int $pagePid
-	 * @return keywords
+	 * @var \Blog\Golb\Domain\Repository\TagRepository
+	 * @inject
 	 */
-	public function render($pagePid = '') {
+	protected $tagRepository;
 
-		$content = $this->pageRepository->findByIdentifier($pagePid);
-	//	var_dump($content->getGolbTags());
+	/**
+	 * @param int $pageUid
+	 * @param int $tags
+	 * @return $tags
+	 */
+	public function render($pageUid = '', $tags) {
+
+
+
 
 
 	}

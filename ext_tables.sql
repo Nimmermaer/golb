@@ -54,6 +54,7 @@ CREATE TABLE tx_golb_domain_model_tag (
 	uid int(11) NOT NULL auto_increment,
 	pid int(11) DEFAULT '0' NOT NULL,
 
+
 	title varchar(255) DEFAULT '' NOT NULL,
 	records int(11) DEFAULT '0' NOT NULL,
 

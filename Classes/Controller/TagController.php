@@ -33,7 +33,7 @@ namespace Blog\Golb\Controller;
  *
  * @package Blog\Golb\Domain\Controller
  */
-class TagCloudController extends BaseController {
+class TagController extends BaseController {
 
 	/**
 	 * @var \Blog\Golb\Domain\Repository\TagRepository
@@ -43,32 +43,21 @@ class TagCloudController extends BaseController {
 
 
 
-	/**
-	 * Find all Tags for cloud with uid for link
-	 *
-	 * @return void
-	 */
-	public function showAction() {
-
-		$tags = $this->tagRepository->findAll();
-
-		$this->view->assign('tags', $tags);
-	}
 
 	/**
-	 * Lists blog posts
+	 * Find all Tags for cloud
 	 *
 	 * @return void
 	 */
 	public function listAction() {
-		$posts = $this->pageRepository->findPosts(
-			$this->pages,
-			$this->contentObject->data['golb_limit'],
-			$this->contentObject->data['golb_offset'],
-			$this->categories
-		);
+		$tags = $this->tagRepository->findAll();
+		$countTags = $tags;
+		foreach($tags as $tag){
+			$tag->setCount($this->tagRepository->countByUid($tag->getUid()));
+		 }
 
-		$this->view->assign('posts', $posts);
+		$this->view->assign('tags', $tags);
 	}
+
 
 }

@@ -1,0 +1,16 @@
+{namespace g=Blog\Golb\ViewHelpers}
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en"
+	  xmlns:f="http://xsd.helmut-hummel.de/ns/TYPO3/Fluid/ViewHelpers"
+	  xmlns:g="http://xsd.marcel-wieser.de/ns/Blog/Golb/ViewHelpers/index.xml">
+<f:layout name="Default"/>
+
+<f:section name="Main">
+<div class="tagCloud">
+	<f:for each="{tags}" as="tag">
+		<f:if condition="{tag.count}">
+			<f:link.action controller="tag" action="show" additionalParams="{pageUid:'{tag.uid}'}" pageUid="{settings.storageTagListPid}" style='font-size:{tag.count}px;'>{tag.title}</f:link.action>
+		</f:if>
+	</f:for>
+</div>
+</f:section>

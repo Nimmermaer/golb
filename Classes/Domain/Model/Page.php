@@ -208,9 +208,9 @@ class Page extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * Tags for this page
 	 *
-	 * @var string $golbTags
+	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Blog\Golb\Domain\Model\Tag> $tags
 	 */
-	protected $golbTags;
+	protected $tags;
 
 
 	/**
@@ -872,17 +872,17 @@ class Page extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	}
 
 	/**
-	 * @return string
+	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Blog\Golb\Domain\Model\Tag> $tags
 	 */
-	public function getGolbTags() {
-		return $this->golbTags;
+	public function getTags() {
+		return $this->tags;
 	}
 
 	/**
-	 * @param string $golbTags
+	 * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Blog\Golb\Domain\Model\Tag> $tags
 	 */
-	public function setGolbTags($golbTags) {
-		$this->golbTags = $golbTags;
+	public function setTags($tags) {
+		$this->tags = $tags;
 	}
 
 	/**

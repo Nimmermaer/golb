@@ -47,6 +47,6 @@ class BaseController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 	 */
 	public function initializeAction() {
 		$this->contentObject = $this->configurationManager->getContentObject();
-	}
+		}
 
 }

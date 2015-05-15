@@ -1,5 +1,5 @@
 <?php
-namespace PHTH\Pongback\Domain\Model;
+namespace Blog\Golb\Domain\Model;
 
 	/***************************************************************
 	 *  Copyright notice
@@ -28,34 +28,74 @@ namespace PHTH\Pongback\Domain\Model;
 /**
  *
  *
- * @package pongback
+ * @package golb
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License,
  * version 3 or later
  *
  */
 class Tag extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 
+	/**
+	 * @var int
+	 */
+	protected $count;
 
 	/**
-	 * tag Keyword
+	 *
+	 * @var string
 	 */
-	protected $keyword;
+	protected $title;
+
+	/*
+	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Blog\Golb\Domain\Model\Page> $record
+	 */
+	protected $record;
 
 
 	/**
-	 * @return mixed
+	 * @return string
 	 */
-	public function getKeyword() {
-		return $this->keyword;
+	public function getTitle() {
+		return $this->title;
+	}
+
+	/**
+	 * @param string $title
+	 */
+	public function setTitle($title) {
+		$this->title = $title;
+	}
+
+	/**
+	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Blog\Golb\Domain\Model\Page> $record
+	 */
+	public function getRecord() {
+		return $this->record;
+	}
+
+	/**
+	 * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Blog\Golb\Domain\Model\Page> $record
+	 */
+	public function setRecord($record) {
+		$this->record = $record;
+	}
+
+	/**
+	 * @return int
+	 */
+	public function getCount() {
+		return $this->count;
+	}
+
+	/**
+	 * @param int $count
+	 */
+	public function setCount($count) {
+		$this->count = $count;
 	}
 
 
-	/**
-	 * @param mixed $keyword
-	 */
-	public function setKeyword( $keyword ) {
-		$this->keyword = $keyword;
-	}
+
 }
 
 ?>

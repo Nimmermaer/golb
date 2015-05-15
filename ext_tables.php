@@ -215,7 +215,7 @@ $boot = function($packageKey) {
 
 	\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPlugin(array('Blog', 'golb'), 'CType');
 	$GLOBALS['TCA']['tt_content']['types']['golb']['showitem'] =
-		'CType;;4;button;1-1-1, golb_action, golb_sorting, golb_sorting_direction, golb_limit, golb_offset, golb_related, pages, golb_exclude, categories,
+		'CType;;4;button;1-1-1, golb_action, golb_sorting, golb_sorting_direction, golb_limit, golb_offset, golb_related, pages, golb_exclude, golb_tags, categories,
 		--div--;LLL:EXT:cms/locallang_tca.xml:pages.tabs.access,starttime, endtime, fe_group';
 
 	//Set new page types
@@ -272,7 +272,7 @@ $boot = function($packageKey) {
 			),
 			'searchFields' => 'title,',
 			'dynamicConfigFile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($packageKey) . 'Configuration/TCA/Tag.php',
-			'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath($packageKey) . 'Resources/Public/Icons/tx_golb_domain_model_tag.gif'
+			'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath($packageKey) . 'Resources/Public/Icons/tag.png'
 		),
 	);
 
@@ -281,7 +281,7 @@ $boot = function($packageKey) {
 	$extPageKeyword = array (
 		'tx_golb_tags_editor' => array (
 			'exclude' => 1,
-			'label' => 'LLL:EXT:ext_page_keywords/Resources/Private/Language/locallang_db.xlf:tx_golb_tags_editor',
+			'label' => 'LLL:EXT:golb/Resources/Private/Language/locallang_db.xlf:tx_golb_tags_editor',
 			'config' => array (
 				'type' => 'user',
 				'userFunc' => 'Blog\Golb\UserFunctions\TagField->suggestTag'
