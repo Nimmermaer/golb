@@ -2,12 +2,12 @@
 if (!defined('TYPO3_MODE')) {
 	die ('Access denied.');
 }
-/*
+
 if (TYPO3_MODE === 'BE') {
 	$GLOBALS['TYPO3_CONF_VARS'][TYPO3_MODE]['AJAX']['Golb::getKeywords']
 		= 'EXT:golb/Classes/UserFunctions/TagField.php:Blog\Golb\UserFunctions\TagField->suggestTag';
 }
-*/
+
 $boot = function($packageKey) {
 	\TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
 		'Blog.' . $packageKey,
@@ -44,21 +44,43 @@ $boot = function($packageKey) {
 		'Blog.' . $packageKey,
 		'TagCloud',
 		array(
-			'Tag' => 'list'
+			'Tag' => 'list, show'
 		),
 		array(
-			'Tag' => 'list'
+			'Tag' => 'list, show'
 		)
 	);
 
 	\TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
 		'Blog.' . $packageKey,
-		'MenuBar',
+		'Filter',
 		array(
-			'Blog' => 'listYear, listCategory, showTagCloud'
+			'Blog' => 'filter'
 		),
 		array(
-			'Blog' => 'listYear, listCategory, showTagCloud'
+			'Blog' => 'filter'
+		)
+	);
+
+	\TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
+		'Blog.' . $packageKey,
+		'ListReleaseDate',
+		array(
+			'Blog' => 'listReleaseDate',
+		),
+		array(
+			'Blog' => 'listReleaseDate',
+			)
+	);
+
+	\TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
+		'Blog.' . $packageKey,
+		'ListCategory',
+		array(
+			'Blog' => 'listCategory'
+		),
+		array(
+			'Blog' => 'listCategory'
 		)
 	);
 

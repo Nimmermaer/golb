@@ -10,25 +10,6 @@
 				</TCEforms>
 				<type>array</type>
 				<el>
-					<switchableControllerActions>
-						<TCEforms>
-							<label>Ansicht</label>
-							<onChange>reload</onChange>
-							<config>
-								<type>select</type>
-								<items type="array">
-									<numIndex index="1" type="array">
-										<numIndex index="0">Aktuelle Beiträge</numIndex>
-										<numIndex index="1">Blog->latest</numIndex>
-									</numIndex>
-									<numIndex index="2" type="array">
-										<numIndex index="0">Alle</numIndex>
-										<numIndex index="1">Blog->list</numIndex>
-									</numIndex>
-								</items>
-							</config>
-						</TCEforms>
-					</switchableControllerActions>
 					<settings.pagination.itemsPerPage>
 						<TCEforms>
 							<label>Pagination</label>
@@ -58,9 +39,9 @@
 					<settings.pagination.insertAbove>
 						<TCEforms>
 							<label>Paginations Liste oben</label>
-								<config>
-									<type>check</type>
-								</config>
+							<config>
+								<type>check</type>
+							</config>
 						</TCEforms>
 					</settings.pagination.insertAbove>
 					<settings.pagination.insertBelow>

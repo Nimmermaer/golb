@@ -1,0 +1,11 @@
+<h3>List Categories</h3>
+
+<ul>
+	<f:for each="{categories}" as="category">
+		<li>
+			<f:link.page pageUid="{settings.filterPid}" additionalParams="{categoryUid:'{category.uid}'},{categoryTitle:'{category.title}'}, ">
+				{category.title}
+			</f:link.page>
+		</li>
+	</f:for>
+</ul>

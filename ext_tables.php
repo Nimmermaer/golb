@@ -9,29 +9,41 @@ $boot = function($packageKey) {
 	\TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
 		'Blog.' . $packageKey,
 		'Blog',
-		'Blog'
+		'LLL:EXT:golb/Resources/Private/Language/locallang_db.xlf:tx_golb_plugin.blog'
 	);
 	\TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
 		'Blog.' . $packageKey,
 		'ViewCount',
-		'ViewCount'
+		'LLL:EXT:golb/Resources/Private/Language/locallang_db.xlf:tx_golb_plugin.viewcount'
 	);
 	\TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
 		'Blog.' . $packageKey,
 		'Sorting',
-		'Sorting'
+		'LLL:EXT:golb/Resources/Private/Language/locallang_db.xlf:tx_golb_plugin.sorting'
 	);
 
 	\TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
 		'Blog.' . $packageKey,
 		'TagCloud',
-		'TagCloud'
+		'LLL:EXT:golb/Resources/Private/Language/locallang_db.xlf:tx_golb_plugin.tagcloud'
 	);
 
 	\TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
 		'Blog.' . $packageKey,
-		'MenuBar',
-		'MenuBar'
+		'ListReleaseDate',
+		'LLL:EXT:golb/Resources/Private/Language/locallang_db.xlf:tx_golb_plugin.listreleasedate'
+	);
+
+	\TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
+		'Blog.' . $packageKey,
+		'ListCategory',
+		'LLL:EXT:golb/Resources/Private/Language/locallang_db.xlf:tx_golb_plugin.listcategory'
+	);
+
+	\TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
+		'Blog.' . $packageKey,
+		'Filter',
+		'LLL:EXT:golb/Resources/Private/Language/locallang_db.xlf:tx_golb_plugin.filter'
 	);
 
 	\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addStaticFile($packageKey, 'Configuration/TypoScript', 'Golb');
@@ -305,15 +317,15 @@ $boot = function($packageKey) {
 );
 
 $extensionName = strtolower(\TYPO3\CMS\Core\Utility\GeneralUtility::underscoredToUpperCamelCase($_EXTKEY));
-$pluginName =  strtolower('MenuBar');
+$pluginName =  strtolower('Filter');
 $pluginSignature = $extensionName.'_'.$pluginName;
 $TCA['tt_content']['types']['list']['subtypes_excludelist'][$pluginSignature] = 'layout,select_key,pages';
 $TCA['tt_content']['types']['list']['subtypes_addlist'][$pluginSignature] = 'pi_flexform';
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPiFlexFormValue($pluginSignature, 'FILE:EXT:'.$_EXTKEY.'/Configuration/FlexForm/Flexform.xml');
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPiFlexFormValue($pluginSignature, 'FILE:EXT:'.$_EXTKEY.'/Configuration/FlexForm/Filter.xml');
 
 $pluginNameBlog =  strtolower('Blog');
 $pluginSignatureBlog = $extensionName.'_'.$pluginNameBlog;
-$TCA['tt_content']['types']['list']['subtypes_excludelist'][$pluginSignatureBlog] = 'layout,select_key,pages';
+//$TCA['tt_content']['types']['list']['subtypes_excludelist'][$pluginSignatureBlog] = 'layout, select_key, pages';
 $TCA['tt_content']['types']['list']['subtypes_addlist'][$pluginSignatureBlog] = 'pi_flexform';
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPiFlexFormValue($pluginSignatureBlog, 'FILE:EXT:'.$_EXTKEY.'/Configuration/FlexForm/Blog.xml');
 

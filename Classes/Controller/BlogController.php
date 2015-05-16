@@ -121,4 +121,53 @@ class BlogController extends BaseController {
 		$this->view->assign('posts', $posts);
 	}
 
+	/**
+	 * filter for Pages
+	 * @return array
+	 */
+	public function filterAction(){
+		$filter = $_GET;
+		if (array_key_exists('tagUid', $filter) && array_key_exists('tagTitle', $filter)) {
+			$showFilter = $filter['tagTitle'];
+			$posts = $this->pageRepository->findPostsByFilter($filter);
+		}
+		if (array_key_exists('categoryUid', $filter) && array_key_exists('categoryTitle', $filter)) {
+			$showFilter = $filter['categoryTitle'];
+			$posts = $this->pageRepository->findPostsByFilter($filter);
+		}
+		if (array_key_exists('year', $filter)) {
+			$showFilter = date(o,$filter['year']);
+			$posts = $this->pageRepository->findPostsByFilter($filter);
+		}
+		if (array_key_exists('month', $filter)) {
+			$showFilter = strftime("%B",$filter['month']);
+			$posts = $this->pageRepository->findPostsByFilter($filter);
+		}
+		$this->view->assign('filter', $showFilter);
+		$this->view->assign('posts', $posts);
+	}
+
+	/**
+	 *
+	 * @return void
+	 */
+	public function listCategoryAction(){
+
+		$categories = $this->categoryRepository->findAll();
+
+		$this->view->assign('categories', $categories);
+	}
+
+	/**
+	 *  @return void
+	 */
+	public function listReleaseDateAction(){
+
+		$dates =$this->pageRepository->findDatesFromPosts();
+
+
+			$this->view->assign('dates', $dates);
+	}
+
+
 }

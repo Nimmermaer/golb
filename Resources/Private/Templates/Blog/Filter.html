@@ -1,5 +1,6 @@
 {namespace g=Blog\Golb\ViewHelpers}
 
+
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en"
 	  xmlns:f="http://xsd.helmut-hummel.de/ns/TYPO3/Fluid/ViewHelpers"
 	  xmlns:g="http://xsd.marcel-wieser.de/ns/Blog/Golb/ViewHelpers/index.xml">
@@ -10,7 +11,9 @@
 	<div class="container-fluid">
 		<div class="row">
 			<div id="Blog" class="col-md-12">
-				<h2>Alle Beiträge</h2>
+				<f:if condition="{filter}">
+					<h2>{filter}</h2>
+				</f:if>
 				<ul>
 					<g:paginate objects="{posts}" as="paginatedPosts"  configuration="{itemsPerPage: '{settings.pagination.itemsPerPage}', insertAbove: '{settings.pagination.insertAbove}', insertBelow:'{settings.pagination.insertBelow}', maximumNumberOfLinks: '{settings.pagination.maximumNumberOfLinks}'}">
 						<f:for each="{paginatedPosts}" as="post">
@@ -25,7 +28,7 @@
 										</f:for>
 										<f:link.page pageUid="{post.uid}"><span class="more">[mehr..]</span>
 										</f:link.page>
-										<f:if condition="{post.tags}">
+									<f:if condition="{post.tags}">
 											<ul class="blogTags">
 												<f:for each="{post.tags}" as="tag">
 													<li>

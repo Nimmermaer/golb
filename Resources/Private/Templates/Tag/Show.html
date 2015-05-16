@@ -6,8 +6,11 @@
 <f:layout name="Default"/>
 
 <f:section name="Main">
-
+	<div class="tagCloud">
 		<f:for each="{tags}" as="tag">
-			{tag.title} {tag.uid} <br />
+			<f:if condition="{tag.count}">
+				<f:link.page  additionalParams="{tagUid:'{tag.uid}', tagTitle:'{tag.Title}'}" pageUid="{settings.filterPid}" style='font-size:{tag.count}px;'>{tag.title}</f:link.page>
+			</f:if>
 		</f:for>
+	</div>
 </f:section>

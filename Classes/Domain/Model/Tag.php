@@ -46,11 +46,6 @@ class Tag extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	 */
 	protected $title;
 
-	/*
-	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Blog\Golb\Domain\Model\Page> $records
-	 */
-	protected $records;
-
 
 	/**
 	 * @return string
@@ -64,20 +59,6 @@ class Tag extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	 */
 	public function setTitle($title) {
 		$this->title = $title;
-	}
-
-	/**
-	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Blog\Golb\Domain\Model\Page> $records
-	 */
-	public function getRecords() {
-		return $this->records;
-	}
-
-	/**
-	 * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Blog\Golb\Domain\Model\Page> $records
-	 */
-	public function setRecords($records) {
-		$this->records = $records;
 	}
 
 	/**

@@ -1,0 +1,16 @@
+<h3>List Releasedates</h3>
+
+<ul>
+	<f:for each="{dates}" as="date">
+		<li>
+			<f:link.page pageUid="{settings.filterPid}" additionalParams="{year:'{date.year}'}"><f:format.date format="Y">@{date.year}</f:format.date></f:link.page>
+			<ul>
+				<f:for each="{date.months}" as="month">
+					<li>
+						<f:link.page pageUid="{settings.filterPid}" additionalParams="{month:'{month}'}"><f:format.date format="M">@{month}</f:format.date></f:link.page>
+					</li>
+				</f:for>
+			</ul>
+		</li>
+	</f:for>
+</ul>

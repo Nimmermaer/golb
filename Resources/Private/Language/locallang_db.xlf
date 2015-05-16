@@ -46,8 +46,27 @@
 			<trans-unit id="pages.golb_tags">
 				<source>Golb Tags</source>
 			</trans-unit>
-
-
+			<trans-unit id="tx_golb_plugin.blog">
+				<source>Blog</source>
+			</trans-unit>
+			<trans-unit id="tx_golb_plugin.viewcount">
+				<source>ViewCount</source>
+			</trans-unit>
+			<trans-unit id="tx_golb_plugin.sorting">
+				<source>Sorting</source>
+			</trans-unit>
+			<trans-unit id="tx_golb_plugin.tagcloud">
+				<source>Tag cloud</source>
+			</trans-unit>
+			<trans-unit id="tx_golb_plugin.listreleasedate">
+				<source>Releasedate list</source>
+			</trans-unit>
+			<trans-unit id="tx_golb_plugin.listcategory">
+				<source>Categorylist</source>
+			</trans-unit>
+			<trans-unit id="tx_golb_plugin.filter">
+				<source>Show Filter result</source>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>

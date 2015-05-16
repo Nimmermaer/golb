@@ -29,7 +29,7 @@ namespace Blog\Golb\Controller;
  ***************************************************************/
 
 /**
- * Class TagCloudController
+ * Class TagController
  *
  * @package Blog\Golb\Domain\Controller
  */
@@ -45,11 +45,12 @@ class TagController extends BaseController {
 
 
 	/**
-	 * Find all Tags for cloud
+	 * list
 	 *
 	 * @return void
 	 */
 	public function listAction() {
+
 		$tags = $this->tagRepository->findAll();
 		$countTags = $tags;
 		foreach($tags as $tag){

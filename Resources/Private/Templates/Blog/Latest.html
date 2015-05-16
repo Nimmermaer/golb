@@ -1,5 +1,5 @@
 {namespace g=Blog\Golb\ViewHelpers}
-{namespace v=FluidTYPO3\VHS\ViewHelpers}
+
 
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en"
 	  xmlns:f="http://xsd.helmut-hummel.de/ns/TYPO3/Fluid/ViewHelpers"
@@ -13,12 +13,12 @@
 			<div id="Blog" class="col-md-12">
 				<h2>Aktuelle Beiträge</h2>
 				<ul>
-					<g:paginate objects="{posts}" as="paginatedPosts" configuration="{itemsPerPage: 2, insertAbove: 0, insertBelow: 1, maximumNumberOfLinks: 10}">
+					<g:paginate objects="{posts}" as="paginatedPosts"  configuration="{itemsPerPage: '{settings.pagination.itemsPerPage}', insertAbove: '{settings.pagination.insertAbove}', insertBelow:'{settings.pagination.insertBelow}', maximumNumberOfLinks: '{settings.pagination.maximumNumberOfLinks}'}">
 						<f:for each="{paginatedPosts}" as="post">
 							<li class="item">
 								<ul>
 									<li>
- 									<br/>
+										<br/>
 										<f:for each="{post.ttContents}" as="content">
 											<f:format.html>
 												<f:format.crop maxCharacters="200">{content.bodytext}</f:format.crop>
@@ -26,20 +26,13 @@
 										</f:for>
 										<f:link.page pageUid="{post.uid}"><span class="more">[mehr..]</span>
 										</f:link.page>
-										<f:if condition="{post.media}">
-											<v:page.resources.fal table="pages" field="media" uid="{post.uid}" as="images">
-												<f:for each="{images}" as="image">
-													<f:image src="{image.url}" width="200"/>
-												</f:for>
-											</v:page.resources.fal>
-										</f:if>
 										<f:if condition="{post.tags}">
 											<ul class="blogTags">
 												<f:for each="{post.tags}" as="tag">
 													<li>
-														<f:link.action action="listPages" controller="tag"
-																	   arguments="{tagUid:'{tag.uid}'}">{tag.title}
-														</f:link.action>
+														<f:link.page pageUid="{settings.filterPid}"
+																	 additionalParams="{tagUid:'{tag.uid}', tagTitle:'{tag.title}'}">{tag.title}
+														</f:link.page>
 													</li>
 												</f:for>
 											</ul>
@@ -48,19 +41,19 @@
 											<ul class="blogCategories">
 												<f:for each="{post.categories}" as="category">
 													<li>
-														<f:link.action action="listPages" controller="categories"
-																	   arguments="{categoryUid:'{category.uid}'}">
+														<f:link.page pageUid="{settings.filterPid}"
+																	 additionalParams="{categoryUid:'{category.uid}', categoryTitle:'{category.title}'}">
 															{category.title}
-														</f:link.action>
+														</f:link.page>
 														<f:if condition="{category.subCategories}">
 															<ul>
 																<f:for each="{category.subCategories}" as="subCategory">
 																	<li>
-																		<f:link.action action="listSubPages"
-																					   controller="categories"
-																					   arguments="{categoryUid:'{subCategory.uid}'}">
+																		<f:link.page pageUid="{settings.filterPid}"
+
+																					 additionalParams="{categoryUid:'{subCategory.uid}'}">
 																			{subCategory.title}
-																		</f:link.action>
+																		</f:link.page>
 																	</li>
 																</f:for>
 															</ul>

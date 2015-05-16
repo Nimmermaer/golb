@@ -63,7 +63,6 @@ class PageRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 	 * @return array
 	 */
 	public function findSubPagesByPageIds($rootPages) {
-
 		if(is_array($rootPages)) {
 			$resultArray = array();
 
@@ -232,5 +231,106 @@ class PageRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 			}
 			$this->categories[] = $category;
 		}
+	}
+
+	/**
+	 * @param $filter
+	 * @return array
+	 */
+	public function findPostsByFilter($filter) {
+
+		$whereClause = array();
+		if (array_key_exists('tagUid', $filter)) {
+
+			$postUids = $GLOBALS['TYPO3_DB']->exec_SELECTgetRows(
+				'uid_foreign',
+				'tx_golb_tag_record_mm',
+				' uid_local = ' . $filter['tagUid']
+			);
+			foreach ($postUids as $uid) {
+				$uids[] = $uid['uid_foreign'];
+			}
+			$uids = implode(',', $uids);
+			$whereClause[] = 'uid IN(' . $uids . ')';
+		}
+		if (array_key_exists('categoryUid', $filter)) {
+			$postUids = $GLOBALS['TYPO3_DB']->exec_SELECTgetRows(
+				'uid_foreign',
+				'sys_category_record_mm',
+				' uid_local = ' . $filter['categoryUid']
+			);
+			foreach ($postUids as $uid) {
+				$uids[] = $uid['uid_foreign'];
+			}
+			$uids = implode(',', $uids);
+			$whereClause[] = 'uid IN(' . $uids . ')';
+		}
+		if (array_key_exists('year', $filter)) {
+
+			$postUids = $GLOBALS['TYPO3_DB']->exec_SELECTgetRows(
+				'uid',
+				'pages',
+				'FROM_UNIXTIME(crdate, "%Y") = FROM_UNIXTIME(' . $filter['year'] . ', "%Y")AND doktype=41 AND hidden != 1 AND deleted != 1'
+			);
+			foreach ($postUids as $uid) {
+				$uids[] = $uid['uid'];
+			}
+			$uids = implode(',', $uids);
+			$whereClause[] = 'uid IN(' . $uids . ')';
+		}
+		if (array_key_exists('month', $filter)) {
+
+			$postUids = $GLOBALS['TYPO3_DB']->exec_SELECTgetRows(
+				'uid',
+				'pages',
+				'FROM_UNIXTIME(crdate, "%Y %M") = FROM_UNIXTIME(' . $filter['month'] . ', "%Y %M") AND doktype=41'
+			);
+
+			foreach ($postUids as $uid) {
+				$uids[] = $uid['uid'];
+			}
+			$uids = implode(',', $uids);
+			$whereClause[] = 'uid IN(' . $uids . ')';
+		}
+		if (count($whereClause) > 0) {
+			$whereClause = implode(' AND ', $whereClause);
+			$whereClause = ' AND ' . $whereClause;
+		} else {
+			$whereClause = '';
+		}
+		$query = $this->createQuery();
+		$query->statement(
+			'SELECT *
+             FROM pages
+             WHERE 1=1 ' . $whereClause . ' '
+		);
+		$posts = $query->execute();
+		return $posts->toArray();
+	}
+
+	/**
+	 * @return array
+	 */
+	public function findDatesFromPosts() {
+		$listYear = array();
+		$years = $GLOBALS['TYPO3_DB']->exec_SELECTgetRows(
+			'crdate as year',
+			'pages',
+			'doktype = 41 and hidden != 1 and deleted != 1',
+			'FROM_UNIXTIME(crdate, "%Y")'
+		);
+		foreach($years as $year){
+		$months = $GLOBALS['TYPO3_DB']->exec_SELECTgetRows(
+				'crdate as month',
+				'pages',
+				'doktype = 41 and hidden != 1 and deleted != 1 AND FROM_UNIXTIME(crdate, "%Y") = FROM_UNIXTIME('.$year['year'].',"%Y")',
+				'FROM_UNIXTIME(crdate, "%Y")'
+			);
+		foreach($months as $month ){
+				$year['months'] = $month;
+				$listYear['years'] = $year;
+			}
+		}
+		return $listYear;
 	}
 }
