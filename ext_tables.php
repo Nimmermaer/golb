@@ -272,7 +272,7 @@ $boot = function($packageKey) {
 			),
 			'searchFields' => 'title,',
 			'dynamicConfigFile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($packageKey) . 'Configuration/TCA/Tag.php',
-			'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath($packageKey) . 'Resources/Public/Icons/tag.png'
+			'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath($packageKey) . 'Resources/Public/Icons/tx_golb_domain_model_tag.gif'
 		),
 	);
 

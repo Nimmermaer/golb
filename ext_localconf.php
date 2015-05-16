@@ -2,12 +2,12 @@
 if (!defined('TYPO3_MODE')) {
 	die ('Access denied.');
 }
-
+/*
 if (TYPO3_MODE === 'BE') {
 	$GLOBALS['TYPO3_CONF_VARS'][TYPO3_MODE]['AJAX']['Golb::getKeywords']
 		= 'EXT:golb/Classes/UserFunctions/TagField.php:Blog\Golb\UserFunctions\TagField->suggestTag';
 }
-
+*/
 $boot = function($packageKey) {
 	\TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
 		'Blog.' . $packageKey,

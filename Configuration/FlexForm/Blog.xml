@@ -26,8 +26,6 @@
 										<numIndex index="1">Blog->list</numIndex>
 									</numIndex>
 								</items>
-								<maxitems>3</maxitems>
-								<size>3</size>
 							</config>
 						</TCEforms>
 					</switchableControllerActions>
