@@ -12,13 +12,18 @@
 </f:if>
 
 <f:section name="paginator">
+
+<f:if condition="{pagination}">
     <ul class="f3-widget-paginator">
         <!-- First -->
-        <f:if condition="{f:translate(key:'pagination_first')}">
+        <li>
+        Seite
+        </li>
+           <f:if condition="{f:translate(key:'pagination_first')}">
             <f:if condition="{pagination.isFirstPage}">
                 <f:then>
                     <li class="first">
-                        <span><f:translate key="pagination_first" /></span>
+                        <span> <f:translate key="pagination_first" /></span>
                     </li>
                 </f:then>
                 <f:else>
@@ -104,6 +109,7 @@
             </li>
         </f:if>
     </ul>
+    </f:if>
 </f:section>
 
 </html>

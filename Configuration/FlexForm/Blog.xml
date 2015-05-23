@@ -65,7 +65,7 @@
 					</settings.pagination.insertAbove>
 					<settings.pagination.insertBelow>
 						<TCEforms>
-							<label>Paginations Liste oben</label>
+							<label>Paginations Liste unten</label>
 							<config>
 								<type>check</type>
 							</config>

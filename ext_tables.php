@@ -46,6 +46,12 @@ $boot = function($packageKey) {
 		'LLL:EXT:golb/Resources/Private/Language/locallang_db.xlf:tx_golb_plugin.filter'
 	);
 
+	\TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
+			'Blog.' . $packageKey,
+			'BlogDetails',
+			'LLL:EXT:golb/Resources/Private/Language/locallang_db.xlf:tx_golb_plugin.blogDetails'
+	);
+	
 	\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addStaticFile($packageKey, 'Configuration/TypoScript', 'Golb');
 
 	//New fields

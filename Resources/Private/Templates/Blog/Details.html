@@ -1,0 +1,60 @@
+<div class="postInfo">
+		Veröffentlicht:
+	<f:format.date format="d.m.Y">@{pages.crdate}</f:format.date>
+		<f:if condition="{categories}">
+			<div class="blogCategories">
+				Kategorien :
+				<f:for each="{categories}" as="category" iteration="listIterator">
+					<f:if condition="{listIterator.isLast}">
+						<f:then>
+							<f:link.page pageUid="{settings.filterPid}"	additionalParams="{categoryUid:'{category.uid}', categoryTitle:'{category.title}'}">
+															{category.title}
+														</f:link.page>
+							<f:if condition="{category.subCategories}">
+								<ul>
+									<f:for each="{category.subCategories}" as="subCategory">
+										<li><f:link.page pageUid="{settings.filterPid}"	additionalParams="{categoryUid:'{subCategory.uid}'}">
+																			{subCategory.title}
+																		</f:link.page></li>
+									</f:for>
+								</ul>
+							</f:if>
+						</f:then>
+						<f:else>
+							<f:link.page pageUid="{settings.filterPid}" additionalParams="{categoryUid:'{category.uid}', categoryTitle:'{category.title}'}">
+															{category.title}
+														</f:link.page> ,
+														<f:if condition="{category.subCategories}">
+								<ul>
+									<f:for each="{category.subCategories}" as="subCategory">
+										<li><f:link.page pageUid="{settings.filterPid}"	additionalParams="{categoryUid:'{subCategory.uid}'}">
+																			{subCategory.title}
+																		</f:link.page></li>
+									</f:for>
+								</ul>
+							</f:if>
+						</f:else>
+					</f:if>
+				</f:for>
+			</div>
+		</f:if>
+		<f:if condition="{tags}">
+			<div class="blogTags">
+				Schlagwörter :
+				<f:for each="{tags}" as="tag" iteration="listIterator">
+					<f:if condition="{listIterator.isLast}">
+						<f:then>
+							<f:link.page pageUid="{settings.filterPid}"
+								additionalParams="{tagUid:'{tag.uid}', tagTitle:'{tag.title}'}">{tag.title}
+														</f:link.page>
+						</f:then>
+						<f:else>
+							<f:link.page pageUid="{settings.filterPid}"
+								additionalParams="{tagUid:'{tag.uid}', tagTitle:'{tag.title}'}">{tag.title}
+														</f:link.page> ,
+													</f:else>
+					</f:if>
+				</f:for>
+			</div>
+		</f:if>
+	</div>

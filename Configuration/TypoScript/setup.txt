@@ -1,6 +1,6 @@
 plugin.tx_golb {
 	settings {
-		defaultBackendLayout = 4
+		defaultBackendLayout = 3
         filterPid = 8
 
 	}
@@ -135,3 +135,5 @@ lib.BlogSorting {
     persistence < plugin.tx_golb.persistence
     settings < plugin.tx_golb.settings
 }
+
+lib.BlogDetails < tt_content.list.20.golb_blogdetails

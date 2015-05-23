@@ -30,6 +30,16 @@ $boot = function($packageKey) {
 		)
 	);
 	\TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
+			'Blog.' . $packageKey,
+			'BlogDetails',
+			array(
+					'Blog' => 'details'
+			),
+			array(
+					'Blog' => 'details'
+			)
+	);
+	\TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
 		'Blog.' . $packageKey,
 		'ViewCount',
 		array(

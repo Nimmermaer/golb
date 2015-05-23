@@ -1,5 +1,5 @@
 {namespace g=Blog\Golb\ViewHelpers}
-
+{namespace v=FluidTYPO3\Vhs\ViewHelpers}
 
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en"
 	  xmlns:f="http://xsd.helmut-hummel.de/ns/TYPO3/Fluid/ViewHelpers"
@@ -20,15 +20,19 @@
 							<li class="item">
 								<ul>
 									<li>
-										<br/>
-										<f:for each="{post.ttContents}" as="content">
-											<f:format.html>
-												<f:format.crop maxCharacters="200">{content.bodytext}</f:format.crop>
-											</f:format.html>
+										<br/><f:for each="{post.ttContents}" as="content">
+											<f:format.crop maxCharacters="200">{content.bodytext}</f:format.crop>
 										</f:for>
 										<f:link.page pageUid="{post.uid}"><span class="more">[mehr..]</span>
 										</f:link.page>
-									<f:if condition="{post.tags}">
+										<f:if condition="{post.media}">
+											<v:page.resources.fal table="pages" field="media" uid="{post.uid}" as="images">
+												<f:for each="{images}" as="image">
+													<f:image src="{image.url}" width="200"/>
+												</f:for>
+											</v:page.resources.fal>
+										</f:if>
+										<f:if condition="{post.tags}">
 											<ul class="blogTags">
 												<f:for each="{post.tags}" as="tag">
 													<li>
@@ -74,3 +78,5 @@
 	</div>
 </f:section>
 </html>
+
+

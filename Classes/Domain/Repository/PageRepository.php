@@ -270,7 +270,7 @@ class PageRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 			$postUids = $GLOBALS['TYPO3_DB']->exec_SELECTgetRows(
 				'uid',
 				'pages',
-				'FROM_UNIXTIME(crdate, "%Y") = FROM_UNIXTIME(' . $filter['year'] . ', "%Y")AND doktype=41 AND hidden != 1 AND deleted != 1'
+				'FROM_UNIXTIME(starttime, "%Y") = FROM_UNIXTIME(' . $filter['year'] . ', "%Y")AND doktype=41 AND hidden != 1 AND deleted != 1'
 			);
 			foreach ($postUids as $uid) {
 				$uids[] = $uid['uid'];
@@ -283,7 +283,7 @@ class PageRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 			$postUids = $GLOBALS['TYPO3_DB']->exec_SELECTgetRows(
 				'uid',
 				'pages',
-				'FROM_UNIXTIME(crdate, "%Y %M") = FROM_UNIXTIME(' . $filter['month'] . ', "%Y %M") AND doktype=41'
+				'FROM_UNIXTIME(starttime, "%Y %M") = FROM_UNIXTIME(' . $filter['month'] . ', "%Y %M") AND doktype=41'
 			);
 
 			foreach ($postUids as $uid) {
@@ -292,18 +292,23 @@ class PageRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 			$uids = implode(',', $uids);
 			$whereClause[] = 'uid IN(' . $uids . ')';
 		}
+		
 		if (count($whereClause) > 0) {
 			$whereClause = implode(' AND ', $whereClause);
 			$whereClause = ' AND ' . $whereClause;
 		} else {
 			$whereClause = '';
 		}
+		
+		 
+		
 		$query = $this->createQuery();
 		$query->statement(
 			'SELECT *
              FROM pages
              WHERE 1=1 ' . $whereClause . ' '
 		);
+
 		$posts = $query->execute();
 		return $posts->toArray();
 	}
@@ -314,21 +319,26 @@ class PageRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 	public function findDatesFromPosts() {
 		$listYear = array();
 		$years = $GLOBALS['TYPO3_DB']->exec_SELECTgetRows(
-			'crdate as year',
+			'starttime as year',
 			'pages',
 			'doktype = 41 and hidden != 1 and deleted != 1',
-			'FROM_UNIXTIME(crdate, "%Y")'
+			'FROM_UNIXTIME(starttime, "%Y")',
+			'FROM_UNIXTIME(starttime, "%Y") DESC'
 		);
 		foreach($years as $year){
-		$months = $GLOBALS['TYPO3_DB']->exec_SELECTgetRows(
-				'crdate as month',
-				'pages',
-				'doktype = 41 and hidden != 1 and deleted != 1 AND FROM_UNIXTIME(crdate, "%Y") = FROM_UNIXTIME('.$year['year'].',"%Y")',
-				'FROM_UNIXTIME(crdate, "%Y")'
+			$listYear[strftime("%Y",$year['year'])]['year'] = $year['year']; 
+			$months = $GLOBALS['TYPO3_DB']->exec_SELECTgetRows(
+					'starttime as month',
+					'pages',
+					'doktype = 41 and hidden != 1 and deleted != 1 AND FROM_UNIXTIME(starttime, "%Y") = FROM_UNIXTIME('.$year['year'].',"%Y")',
+					'FROM_UNIXTIME(starttime, "%m")',
+					'FROM_UNIXTIME(starttime, "%m") DESC'
 			);
-		foreach($months as $month ){
-				$year['months'] = $month;
-				$listYear['years'] = $year;
+			foreach($months as $month ){
+			    //$year['months'][] = $month[0]['month'];
+				//$listYear[strftime("%Y",$year['year'])] = $year;
+				
+				$listYear[strftime("%Y",$year['year'])]['months'][] = $month['month'];
 			}
 		}
 		return $listYear;

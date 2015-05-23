@@ -67,6 +67,10 @@
 			<trans-unit id="tx_golb_plugin.filter">
 				<source>Show Filter result</source>
 			</trans-unit>
+			<trans-unit id="tx_golb_plugin.blogDetails">
+				<source>Blogdetails</source>
+			</trans-unit>
+			
 		</body>
 	</file>
 </xliff>
