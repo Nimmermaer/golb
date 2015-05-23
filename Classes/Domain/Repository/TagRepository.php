@@ -32,40 +32,57 @@ namespace Blog\Golb\Domain\Repository;
  * The repository for pages
  */
 class TagRepository extends Repository {
-
+	
+	/**
+	 * 
+	 */
 	public function initializeObject() {
-		$querySettings = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\Typo3QuerySettings');
-		$querySettings->setRespectStoragePage(FALSE);
-		$this->setDefaultQuerySettings($querySettings);
+		$querySettings = $this->objectManager->get ( 'TYPO3\\CMS\\Extbase\\Persistence\\Generic\\Typo3QuerySettings' );
+		$querySettings->setRespectStoragePage ( FALSE );
+		$this->setDefaultQuerySettings ( $querySettings );
 	}
-
+	/**
+	 * 
+	 * @param string $uid
+	 * @return string
+	 */
 	public function countByUid($uid) {
-		$tagsCount = $GLOBALS['TYPO3_DB']->exec_SELECTcountRows (
-			'*',
-			'tx_golb_domain_model_tag'
-		);
-		$tagCount = $GLOBALS['TYPO3_DB']->exec_SELECTcountRows (
-			'*',
-			'tx_golb_tag_record_mm',
-			' uid_local = ' . $uid
-		);
-
-		if($tagCount){
-			$tagPercent = $this->GetTagSizeLogarithmic($tagCount,0,$tagsCount,5, 40, '' );
-			}
-
+		$tagsCount = $GLOBALS ['TYPO3_DB']->exec_SELECTcountRows ( '*', 'tx_golb_domain_model_tag' );
+		$tagCount = $GLOBALS ['TYPO3_DB']->exec_SELECTcountRows ( '*', 'tx_golb_tag_record_mm', 'uid_local = ' . $uid );
+		
+		if ($tagCount) {
+			$tagPercent = $this->GetTagSizeLogarithmic ( $tagCount, 0, $tagsCount, 5, 40, '' );
+		}
+		
 		return $tagPercent;
 	}
-
-	public function GetTagSizeLogarithmic( $count, $mincount, $maxcount, $minsize, $maxsize, $tresholds ) {
-		if( empty($tresholds) ) :
-			$tresholds = $maxsize-$minsize;
+	/**
+	 * 
+	 * @param string $count
+	 * @param string $mincount
+	 * @param string $maxcount
+	 * @param string $minsize
+	 * @param string $maxsize
+	 * @param string $tresholds
+	 */
+	public function GetTagSizeLogarithmic($count, $mincount, $maxcount, $minsize, $maxsize, $tresholds) {
+		if (empty ( $tresholds )) :
+			$tresholds = $maxsize - $minsize;
 			$treshold = 1;
-		else :
-			$treshold = ($maxsize-$minsize)/($tresholds-1);
+		 else :
+			$treshold = ($maxsize - $minsize) / ($tresholds - 1);
 		endif;
-		$a = $tresholds*log($count - $mincount+2)/log($maxcount - $mincount+2)-1;
-		return round($minsize+round($a)*$treshold);
+		$a = $tresholds * log ( $count - $mincount + 2 ) / log ( $maxcount - $mincount + 2 ) - 1;
+		return round ( $minsize + round ( $a ) * $treshold );
 	}
-
+	/**
+	 * 
+	 * @param string $pid
+	 * @return string
+	 */
+	public function findTagsByPid($pid) {
+		$tags = $GLOBALS ['TYPO3_DB']->exec_SELECTgetRows ( 'tx_golb_domain_model_tag.uid as uid,tx_golb_domain_model_tag.title as title', 'tx_golb_domain_model_tag, tx_golb_tag_record_mm', 'tx_golb_tag_record_mm.uid_foreign = ' . $pid . ' AND tx_golb_domain_model_tag.uid = tx_golb_tag_record_mm.uid_local' );
+		
+		return $tags;
+	}
 }

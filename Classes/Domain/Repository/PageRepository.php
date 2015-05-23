@@ -234,6 +234,7 @@ class PageRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 	}
 
 	/**
+	 * 
 	 * @param $filter
 	 * @return array
 	 */
@@ -283,7 +284,7 @@ class PageRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 			$postUids = $GLOBALS['TYPO3_DB']->exec_SELECTgetRows(
 				'uid',
 				'pages',
-				'FROM_UNIXTIME(starttime, "%Y %M") = FROM_UNIXTIME(' . $filter['month'] . ', "%Y %M") AND doktype=41'
+				'FROM_UNIXTIME(starttime, "%Y %M") = FROM_UNIXTIME(' . $filter['month'] . ', "%Y %M") AND doktype=41  AND hidden != 1 AND deleted != 1'
 			);
 
 			foreach ($postUids as $uid) {
@@ -314,6 +315,8 @@ class PageRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 	}
 
 	/**
+	 * find dates from Posts 
+	 * 
 	 * @return array
 	 */
 	public function findDatesFromPosts() {
@@ -335,9 +338,7 @@ class PageRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 					'FROM_UNIXTIME(starttime, "%m") DESC'
 			);
 			foreach($months as $month ){
-			    //$year['months'][] = $month[0]['month'];
-				//$listYear[strftime("%Y",$year['year'])] = $year;
-				
+						
 				$listYear[strftime("%Y",$year['year'])]['months'][] = $month['month'];
 			}
 		}

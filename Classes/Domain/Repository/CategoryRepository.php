@@ -47,7 +47,8 @@ class CategoryRepository extends \TYPO3\CMS\Extbase\Domain\Repository\CategoryRe
 			'WHERE mm.tablenames = "'.$tableName.'" ' .
 			'AND mm.uid_foreign = '.(int)$id.' ' .
 			'AND mm.fieldname = "'.$fieldName.'" ' .
-			'AND cat.uid = mm.uid_local'
+			'AND cat.uid = mm.uid_local '.
+			'AND hidden != 1 AND deleted != 1'
 		);
 
 		return $query->execute();

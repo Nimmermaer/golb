@@ -176,8 +176,8 @@ class BlogController extends BaseController {
 		$pid = $GLOBALS ['TSFE']->id;
 		
 		$categories = $this->categoryRepository->findByRelation ( $pid, 'pages' );
-		$tags = $this->tagRepository->findByPid ( $pid );
-		$page = $this->pageRepository->findByUid ( $pid );
+		$tags = $this->tagRepository->findTagsByPid( $pid );
+     	$page = $this->pageRepository->findByUid ( $pid );
 		
 		$this->view->assign ( 'categories', $categories );
 		$this->view->assign ( 'tags', $tags );
