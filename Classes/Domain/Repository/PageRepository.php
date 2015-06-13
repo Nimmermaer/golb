@@ -271,7 +271,7 @@ class PageRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 			$postUids = $GLOBALS['TYPO3_DB']->exec_SELECTgetRows(
 				'uid',
 				'pages',
-				'FROM_UNIXTIME(starttime, "%Y") = FROM_UNIXTIME(' . $filter['year'] . ', "%Y")AND doktype=41 AND hidden != 1 AND deleted != 1'
+				'FROM_UNIXTIME(starttime, "%Y") = FROM_UNIXTIME(' . $filter['year'] . ', "%Y")'
 			);
 			foreach ($postUids as $uid) {
 				$uids[] = $uid['uid'];
@@ -284,7 +284,7 @@ class PageRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 			$postUids = $GLOBALS['TYPO3_DB']->exec_SELECTgetRows(
 				'uid',
 				'pages',
-				'FROM_UNIXTIME(starttime, "%Y %M") = FROM_UNIXTIME(' . $filter['month'] . ', "%Y %M") AND doktype=41  AND hidden != 1 AND deleted != 1'
+				'FROM_UNIXTIME(starttime, "%Y %M") = FROM_UNIXTIME(' . $filter['month'] . ', "%Y %M")'
 			);
 
 			foreach ($postUids as $uid) {
@@ -300,14 +300,13 @@ class PageRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 		} else {
 			$whereClause = '';
 		}
-		
-		 
+	
 		
 		$query = $this->createQuery();
 		$query->statement(
 			'SELECT *
              FROM pages
-             WHERE 1=1 ' . $whereClause . ' '
+             WHERE 1=1 ' . $whereClause . ' AND doktype=41 AND hidden != 1 AND deleted != 1 ORDER BY starttime DESC'
 		);
 
 		$posts = $query->execute();

@@ -95,7 +95,7 @@ $TCA['tx_golb_domain_model_tag'] = array(
 			),
 		),
 		'title'          => array(
-			'exclude' => 0,
+			'exclude' => 1,
 			'label'   => 'LLL:EXT:golb/Resources/Private/Language/locallang_db.xlf:tx_golb_domain_model_tag.title',
 			'config'  => array(
 				'type' => 'input',
